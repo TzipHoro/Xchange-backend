@@ -1,18 +1,18 @@
 from flask_restful import Resource, abort, marshal_with
 from config import app, api, db
-from args import resource_fields, item_put_args, item_update_args
+from args import resource_fields_item, item_put_args, item_update_args
 from models import Item_Model
 
 
 class Item(Resource):
-    @marshal_with(resource_fields)
+    @marshal_with(resource_fields_item)
     def get(self, ID):
         result = Item_Model.query.filter_by(post_id=ID).first()
         if not result:
             abort(404, message="Post Id does not exist...")
         return result
 
-    @marshal_with(resource_fields)
+    @marshal_with(resource_fields_item)
     def put(self, ID):
         args = item_put_args.parse_args()
         result = Item_Model.query.filter_by(post_id=ID).first()
@@ -24,7 +24,7 @@ class Item(Resource):
         db.session.commit()
         return item, 201
 
-    @marshal_with(resource_fields)
+    @marshal_with(resource_fields_item)
     def patch(self, ID):
         args = item_update_args.parse_args()
         result = Item_Model.query.filter_by(post_id=ID).first()
@@ -48,7 +48,7 @@ class Item(Resource):
 
         return result
 
-    @marshal_with(resource_fields)
+    @marshal_with(resource_fields_item)
     def delete(self, ID):
         # ...
         return '', 204

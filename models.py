@@ -14,5 +14,11 @@ class Item_Model(db.Model):
     condition = db.Column(db.String)
 
 
+class User_Model(db.Model):
+    __tablename__ = 'users'
+
+    user_id = db.Column(db.String, primary_key=True)
+    pref_name = db.Column(db.String, nullable=False)
+
 # run first time only:
 #db.create_all()
