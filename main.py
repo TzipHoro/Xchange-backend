@@ -66,10 +66,10 @@ class User(Resource):
     @marshal_with(resource_fields_user)
     def put(self, ID):
         args = user_put_args.parse_args()
-        result = User_Model.query.filter_by(post_id=ID).first()
+        result = User_Model.query.filter_by(user_id=ID).first()
         if result:
             abort(409, message="User Id already exists...")
-        user = Item_Model(user_id=ID, pref_name=args['pref_name'])
+        user = User_Model(user_id=ID, pref_name=args['pref_name'])
         db.session.add(user)
         db.session.commit()
         return user, 201

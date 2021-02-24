@@ -20,3 +20,11 @@ print(response.json())
 input()
 response = requests.patch(BASE + 'item/1', {"user_id": "Tamar"})
 print(response.json())
+
+input()
+response = requests.put(BASE + 'user/Tamar', {'user_id': 'Tamar', 'pref_name': 'Tanner'})
+print(response.json())
+
+input()
+response = requests.get(BASE + 'user/Tamar')
+print(response.json())
