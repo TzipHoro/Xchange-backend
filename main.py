@@ -1,6 +1,7 @@
 from flask_restful import Resource, abort, marshal_with
 from config import app, api, db
-from args import resource_fields_item, item_put_args, item_update_args, user_put_args, user_update_args
+from args import resource_fields_item, item_put_args, item_update_args, user_put_args, user_update_args, \
+    resource_fields_user
 from models import Item_Model, User_Model
 
 
@@ -55,14 +56,14 @@ class Item(Resource):
 
 
 class User(Resource):
-    @marshal_with(resource_fields_item)
+    @marshal_with(resource_fields_user)
     def get(self, ID):
         result = User_Model.query.filter_by(user_id=ID).first()
         if not result:
             abort(404, message="User Id does not exist...")
         return result
 
-    @marshal_with(resource_fields_item)
+    @marshal_with(resource_fields_user)
     def put(self, ID):
         args = user_put_args.parse_args()
         result = User_Model.query.filter_by(post_id=ID).first()
@@ -73,7 +74,7 @@ class User(Resource):
         db.session.commit()
         return user, 201
 
-    @marshal_with(resource_fields_item)
+    @marshal_with(resource_fields_user)
     def patch(self, ID):
         args = user_update_args.parse_args()
         result = Item_Model.query.filter_by(user_id=ID).first()
@@ -89,7 +90,7 @@ class User(Resource):
 
         return result
 
-    @marshal_with(resource_fields_item)
+    @marshal_with(resource_fields_user)
     def delete(self, ID):
         # ...
         return '', 204
