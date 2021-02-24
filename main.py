@@ -84,7 +84,7 @@ class User(Resource):
         if args['user_id']:
             result.user_id = args['user_id']
         if args['pref_name']:
-            result.title = args['pref_name']
+            result.pref_name = args['pref_name']
 
         db.session.commit()
 
