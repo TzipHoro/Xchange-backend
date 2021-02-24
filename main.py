@@ -1,7 +1,7 @@
 from flask_restful import Resource, abort, marshal_with
 from config import app, api, db
-from args import resource_fields_item, item_put_args, item_update_args
-from models import Item_Model
+from args import resource_fields_item, item_put_args, item_update_args, user_put_args, user_update_args
+from models import Item_Model, User_Model
 
 
 class Item(Resource):
@@ -54,7 +54,49 @@ class Item(Resource):
         return '', 204
 
 
+class User(Resource):
+    @marshal_with(resource_fields_item)
+    def get(self, ID):
+        result = User_Model.query.filter_by(user_id=ID).first()
+        if not result:
+            abort(404, message="User Id does not exist...")
+        return result
+
+    @marshal_with(resource_fields_item)
+    def put(self, ID):
+        args = user_put_args.parse_args()
+        result = User_Model.query.filter_by(post_id=ID).first()
+        if result:
+            abort(409, message="User Id already exists...")
+        user = Item_Model(user_id=ID, pref_name=args['pref_name'])
+        db.session.add(user)
+        db.session.commit()
+        return user, 201
+
+    @marshal_with(resource_fields_item)
+    def patch(self, ID):
+        args = user_update_args.parse_args()
+        result = Item_Model.query.filter_by(user_id=ID).first()
+        if not result:
+            abort(404, message="User Id does not exist...")
+
+        if args['user_id']:
+            result.user_id = args['user_id']
+        if args['pref_name']:
+            result.title = args['pref_name']
+
+        db.session.commit()
+
+        return result
+
+    @marshal_with(resource_fields_item)
+    def delete(self, ID):
+        # ...
+        return '', 204
+
+
 api.add_resource(Item, '/item/<int:ID>')
+api.add_resource(User, '/user/<string:ID>')
 
 if __name__ == '__main__':
     app.run(debug=True)
