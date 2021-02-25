@@ -51,8 +51,13 @@ class Item(Resource):
 
     @marshal_with(resource_fields_item)
     def delete(self, ID):
-        # ...
-        return '', 204
+        tmp = Item_Model.query.get(ID)
+
+        db.session.delete(tmp)
+        db.session.commit()
+
+        abort(404, message='Item deleted')
+        return -1
 
 
 class User(Resource):
@@ -90,8 +95,13 @@ class User(Resource):
 
     @marshal_with(resource_fields_user)
     def delete(self, ID):
-        # ...
-        return '', 204
+        tmp = User_Model.query.get(ID)
+
+        db.session.delete(tmp)
+        db.session.commit()
+
+        abort(404, message='User deleted')
+        return -1
 
 
 api.add_resource(Item, '/item/<int:ID>')

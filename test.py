@@ -32,3 +32,16 @@ print(response.json())
 input("press Enter to continue: \n")
 response = requests.patch(BASE + 'user/Tamar', {'pref_name': 'Grammar'})
 print(response.json())
+
+input("press Enter to continue: \n")
+response = requests.delete(BASE + 'item/1')
+print(response.json())
+
+input("press Enter to continue: \n")
+response = requests.put(BASE + 'user/Tziporah', {'user_id': 'Tziporah', 'pref_name': 'Tzip'})
+print(response.json())
+
+input("press Enter to continue: \n")
+response = requests.patch(BASE + 'user/Tziporah', {'pref_name': 'Trish'})
+print(response.json())
+
