@@ -13,18 +13,22 @@ for i in range(len(data)):
     print(response.json())
 
 
-input()
+input("press Enter to continue: \n")
 response = requests.get(BASE + 'item/1')
 print(response.json())
 
-input()
+input("press Enter to continue: \n")
 response = requests.patch(BASE + 'item/1', {"user_id": "Tamar"})
 print(response.json())
 
-input()
+input("press Enter to continue: \n")
 response = requests.put(BASE + 'user/Tamar', {'user_id': 'Tamar', 'pref_name': 'Tanner'})
 print(response.json())
 
-input()
+input("press Enter to continue: \n")
 response = requests.get(BASE + 'user/Tamar')
+print(response.json())
+
+input("press Enter to continue: \n")
+response = requests.patch(BASE + 'user/Tamar', {'pref_name': 'Grammar'})
 print(response.json())

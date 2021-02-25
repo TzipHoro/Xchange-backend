@@ -77,12 +77,10 @@ class User(Resource):
     @marshal_with(resource_fields_user)
     def patch(self, ID):
         args = user_update_args.parse_args()
-        result = Item_Model.query.filter_by(user_id=ID).first()
+        result = User_Model.query.filter_by(user_id=ID).first()
         if not result:
             abort(404, message="User Id does not exist...")
 
-        if args['user_id']:
-            result.user_id = args['user_id']
         if args['pref_name']:
             result.pref_name = args['pref_name']
 

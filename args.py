@@ -29,8 +29,7 @@ item_update_args.add_argument("condition", type=str, help="Item condition")
 
 user_update_args = reqparse.RequestParser()
 
-user_update_args.add_argument("user_id", type=str, help="User Id is required")
-user_update_args.add_argument("pref_name", type=str, help="Preferred name is required")
+user_update_args.add_argument("pref_name", type=str, help="Preferred name")
 
 # resource fields
 resource_fields_item = {
